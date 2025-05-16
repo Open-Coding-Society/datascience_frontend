@@ -1,36 +1,13 @@
-<style>
-    /* This style hides the authenticated content by default */
-    .header {
-        display: none;
-    }
-</style>
-
-<!-- The menu is guarded by class header, it is only displayed when user is authenticated -->
-<div id="authenticatedContent" class="header">
-    <table>
-        <tr>       
-            <td>
-                <a href="{{ site.baseurl }}/">
-                    <img src="{{ site.baseurl }}/images/logo.png" height="60" alt="">
-                </a>
-            </td>
-            <td><a href="{{site.baseurl}}/profile">Profile</a></td>
-            <td><a href="{{site.baseurl}}/post">Posts</a></td>
-            <td><a href="{{site.baseurl}}/logout">Logout</a></td>
-        </tr>
-    </table>
-</div>
-
-<script>
-    /**
-     * This script checks if the user is authenticated.
-     * If the user is authenticated, the 'header' class is removed from the authenticated content,
-     * making it visible.
-     */
-    document.addEventListener('DOMContentLoaded', function() {
-        const isAuthenticated = localStorage.getItem('authenticated') === 'true';
-        if (isAuthenticated) {
-            document.getElementById('authenticatedContent').classList.remove('header');
-        }
-    });
-</script>
+<table>
+    <tr>
+        <td>
+            <a href="{{ site.baseurl }}/">
+                <img src="{{ site.baseurl }}/images/data.png" height="60" x alt="">
+            </a>
+        </td>
+        <td><a href="{{site.baseurl}}/navigation/section/csse">Facial Recognition</a></td>
+        <td><a href="{{site.baseurl}}/navigation/section/csp">Titanic ML</a></td>
+        <td><a href="{{site.baseurl}}/navigation/section/csa">AI Pets</a></td>
+        <td><a href="{{site.baseurl}}/README4YML">Readme</a></td>
+    </tr>
+</table>
