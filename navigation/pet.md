@@ -31,13 +31,10 @@ permalink: /train/
   <form id="petForm">
     <label for="food">Food (1–5):</label>
     <input type="number" id="food" name="food" min="1" max="5" required>
-
     <label for="play">Play (1–5):</label>
     <input type="number" id="play" name="play" min="1" max="5" required>
-
     <label for="sleep">Sleep (1–5):</label>
     <input type="number" id="sleep" name="sleep" min="1" max="5" required>
-
     <button type="submit">Predict Happiness</button>
   </form>
 
@@ -50,7 +47,7 @@ permalink: /train/
     const importanceDiv = document.getElementById('importance');
 
     // Fetch feature importance on load
-    fetch('/api/pet/features')
+    fetch('http://localhost:8887/api/pet/features')
       .then(res => res.json())
       .then(data => {
         let html = '<h3>Feature Importance</h3><ul>';
@@ -68,7 +65,7 @@ permalink: /train/
       const play = parseInt(document.getElementById('play').value);
       const sleep = parseInt(document.getElementById('sleep').value);
 
-      const response = await fetch('/api/pet/predict', {
+      const response = await fetch('http://localhost:8887/api/pet/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ food, play, sleep })
