@@ -8,9 +8,10 @@ permalink: /train/
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ML Pet Trainer</title>
-  <style>
+<style>
     body {
-      font-family: Arial, sans-serif;
+      background-color: #fff8f0;
+      color: #333;
       margin: 2rem;
     }
     label, input {
@@ -19,14 +20,66 @@ permalink: /train/
     }
     button {
       margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: red;
+      border: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
     }
-    #result, #importance {
+    button:hover {
+      background-color: #ffb347;
+    }
+    #result, #importance, #petSpeech {
       margin-top: 2rem;
     }
-  </style>
+    #petImage {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    #petPic {
+      width: 200px;
+      transition: transform 0.3s ease;
+      display: block;
+      margin: 0 auto;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    #petPic.bounce {
+      animation: bounce 0.6s ease;
+    }
+    #petSpeech {
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+    #happinessBar {
+      width: 100%;
+      margin-top: 1rem;
+      height: 20px; 
+    }
+    #petForm{
+        background-color: #db7070;
+        padding: 2rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    input[type="number"] {
+        width: 100%;         /* Make it fill the contner width */
+        padding: 0.5rem;      /* Add space inside the box */
+        font-size: 1.1rem;    /* Make the text larger */
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box; /* Prevent padding from affecting total width */
+    }
+</style>
 
 
   <h1>ML Pet Trainer 🐶</h1>
+
 
   <form id="petForm">
     <label for="food">Food (1–5):</label>
@@ -38,41 +91,68 @@ permalink: /train/
     <button type="submit">Predict Happiness</button>
   </form>
 
+
   <div id="result"></div>
-  <div id="importance"></div>
+
+  <progress id="happinessBar" value="0" max="10"></progress>
+
+  <div id="petImage">
+    <img id="petPic" src="{{site.baseurl}}/images/neutral.png" alt="AI Pet">
+  </div>
+  <div id="petSpeech"></div>
+
 
   <script>
     const form = document.getElementById('petForm');
     const resultDiv = document.getElementById('result');
-    const importanceDiv = document.getElementById('importance');
+    const petPic = document.getElementById('petPic');
+    const petSpeech = document.getElementById('petSpeech');
+    const happinessBar = document.getElementById('happinessBar');
 
-    // Fetch feature importance on load
-    fetch('http://localhost:8887/api/pet/features')
-      .then(res => res.json())
-      .then(data => {
-        let html = '<h3>Feature Importance</h3><ul>';
-        for (const [feature, value] of Object.entries(data)) {
-          html += `<li><strong>${feature}</strong>: ${value}</li>`;
-        }
-        html += '</ul>';
-        importanceDiv.innerHTML = html;
-      });
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  const food = parseInt(document.getElementById('food').value);
+  const play = parseInt(document.getElementById('play').value);
+  const sleep = parseInt(document.getElementById('sleep').value);
 
-      const food = parseInt(document.getElementById('food').value);
-      const play = parseInt(document.getElementById('play').value);
-      const sleep = parseInt(document.getElementById('sleep').value);
-
-      const response = await fetch('http://localhost:8887/api/pet/predict', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ food, play, sleep })
-      });
-
-      const data = await response.json();
-      resultDiv.innerHTML = `<h3>Predicted Happiness: ${data.predicted_happiness}</h3>`;
+  try {
+    const response = await fetch('http://localhost:8887/api/pet/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ food, play, sleep })
     });
+
+    const data = await response.json();
+    const happiness = data.predicted_happiness;
+
+    resultDiv.innerHTML = `<h3>Predicted Happiness: ${happiness}</h3>`;
+    happinessBar.value = happiness;
+
+    // Update pet image and speech
+    let imageSrc = "{{site.baseurl}}/images/neutral.png";
+    let message = "I'm okay... maybe a snack?";
+
+    if (happiness > 8) {
+      imageSrc = "{{site.baseurl}}/images/happy.png";
+      message = "I'm feeling pawsome! 🐾";
+    } else if (happiness < 5) {
+      imageSrc = "{{site.baseurl}}/images/sad.png";
+      message = "I'm feeling ruff... 🥺";
+    }
+
+    petPic.src = imageSrc;
+    petSpeech.textContent = message;
+
+    // Trigger bounce animation
+    petPic.classList.remove('bounce');
+    void petPic.offsetWidth;
+    petPic.classList.add('bounce');
+
+  } catch (err) {
+    console.error('Error predicting happiness:', err);
+    resultDiv.innerHTML = `<p style="color: red;">Something went wrong. Please try again.</p>`;
+  }
+});
   </script>
 
