@@ -36,16 +36,35 @@ permalink: /train/
     #petImage {
       margin-top: 2rem;
       text-align: center;
+      position: relative;
+      width: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
     #petPic {
-      width: 200px;
-      transition: transform 0.3s ease;
+      width: 400px;
       display: block;
       margin: 0 auto;
+      height: 250px;
+      transition: transform 0.3s ease;
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
+    }
+    @keyframes sparkle {
+        0%, 100% { opacity: 0; transform: scale(1) rotate(0deg); }
+         50% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+    }
+    .sparkle {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: radial-gradient(circle, #fff9c4 0%, transparent 70%);
+        border-radius: 50%;
+        animation: sparkle 1.5s infinite;
+        pointer-events: none;
+        filter: drop-shadow(0 0 5px #fff9c4);
     }
     #petPic.bounce {
       animation: bounce 0.6s ease;
@@ -53,11 +72,29 @@ permalink: /train/
     #petSpeech {
       font-style: italic;
       font-size: 1.1rem;
+      text-align: center;
+      margin-top: 1rem; 
     }
     #happinessBar {
       width: 100%;
       margin-top: 1rem;
       height: 20px; 
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #eee;
+      position: relative;
+    }
+    #happinessBar::-webkit-progress-value {
+        transition: width 1s ease;
+        background-color: #ffcc70;
+        border-radius: 10px;
+    }
+    #happinessBar::-moz-progress-bar {
+        transition: width 1s ease;
+        background-color: #ffcc70;
+        border-radius: 10px;
     }
     #petForm{
         background-color: #db7070;
@@ -96,7 +133,7 @@ permalink: /train/
 
   <progress id="happinessBar" value="0" max="10"></progress>
 
-  <div id="petImage">
+  <div id="petImage" style="position: relative; display: inline-block;">
     <img id="petPic" src="{{site.baseurl}}/images/neutral.png" alt="AI Pet">
   </div>
   <div id="petSpeech"></div>
@@ -148,7 +185,7 @@ form.addEventListener('submit', async (e) => {
     petPic.classList.remove('bounce');
     void petPic.offsetWidth;
     petPic.classList.add('bounce');
-
+    
   } catch (err) {
     console.error('Error predicting happiness:', err);
     resultDiv.innerHTML = `<p style="color: red;">Something went wrong. Please try again.</p>`;
