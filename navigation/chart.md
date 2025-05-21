@@ -69,6 +69,9 @@ permalink: /chart/
 
   <div id="descriptions"></div>
 
+  <button onclick="fetchDefinitions()">Show Definitions</button>
+<div id="definitionsBox" style="display:none; margin-top: 1rem;"></div>
+
   <script>
     const charts = [
       {
@@ -153,6 +156,23 @@ permalink: /chart/
     }
 
     drawChart(charts[index]);
+    function fetchDefinitions() {
+  fetch('http://localhost:8887/api/chart/definitions')
+    .then(res => res.json())
+    .then(data => {
+      const box = document.getElementById('definitionsBox');
+      box.innerHTML = '<h3>📊 Chart Descriptions:</h3>';
+      data.forEach((item, index) => {
+        box.innerHTML += `<p><strong>${index + 1}. ${item.answer}:</strong> ${item.description}</p>`;
+      });
+      box.style.display = 'block';
+    })
+    .catch(err => {
+      alert("Error fetching definitions.");
+      console.error(err);
+    });
+}
+
   </script>
 </body>
 </html>
