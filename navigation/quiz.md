@@ -4,9 +4,7 @@ title: Quiz Flashcards (Diagnostic)
 search_exclude: true
 permalink: /quiz/
 ---
-<!DOCTYPE html>
-<html>
-<head>
+
   <style>
     body {
       font-family: sans-serif;
@@ -39,8 +37,7 @@ permalink: /quiz/
       font-size: 16px;
     }
   </style>
-</head>
-<body>
+
 
 <h1>📊 Data Science Quiz</h1>
 
@@ -149,5 +146,3 @@ function endCategory() {
 updateMasteryDisplay();
 </script>
 
-</body>
-</html>
