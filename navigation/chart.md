@@ -13,17 +13,17 @@ permalink: /chart/
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #e0f2fe;
+      background-color: #f0f9ff;
       text-align: center;
       padding: 2rem;
-      color: #1e3a8a;
+      color: #0c4a6e;
     }
     .chart-box {
       margin: 1rem auto;
       background: white;
       border-radius: 1rem;
       padding: 1rem;
-      width: 300px;
+      width: 320px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
     canvas {
@@ -36,9 +36,16 @@ permalink: /chart/
       border: 1px solid #93c5fd;
     }
     button {
-      background-color: #3b82f6;
+      background-color: #38bdf8;
       color: white;
       cursor: pointer;
+    }
+    #descriptions {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #e0f2fe;
+      border-radius: 0.5rem;
+      display: none;
     }
   </style>
 </head>
@@ -52,15 +59,34 @@ permalink: /chart/
     <p id="gameOverMsg" style="display:none;"></p>
   </div>
 
+  <div id="descriptions"></div>
+
   <script>
     const charts = [
-      { data: [100, 50, 75], labels: ["A", "B", "C"], answer: "Fruit Sales" },
-      { data: [20, 80, 60], labels: ["X", "Y", "Z"], answer: "Social Media Usage" }
+      {
+        data: [100, 50, 75],
+        labels: ["Apples", "Bananas", "Cherries"],
+        answer: "Fruit Sales"
+      },
+      {
+        data: [20, 80, 60],
+        labels: ["Instagram", "TikTok", "Twitter"],
+        answer: "Social Media Usage"
+      },
+      {
+        data: [300, 100, 150],
+        labels: ["Dogs", "Cats", "Birds"],
+        answer: "Pet Adoption"
+      },
+      {
+        data: [5, 2, 10],
+        labels: ["Monday", "Wednesday", "Friday"],
+        answer: "Coffee Consumption"
+      }
     ];
 
     let index = 0;
     let score = 0;
-
     const ctx = document.getElementById('chartCanvas').getContext('2d');
 
     function drawChart(chart) {
@@ -71,17 +97,17 @@ permalink: /chart/
 
       chart.data.forEach((value, i) => {
         const height = (value / max) * 150;
-        ctx.fillStyle = '#60a5fa';
+        ctx.fillStyle = '#38bdf8';
         ctx.fillRect(i * (width + gap) + 20, 180 - height, width, height);
+        ctx.fillStyle = '#0c4a6e';
+        ctx.fillText(chart.labels[i], i * (width + gap) + 25, 195);
       });
     }
 
     function submitGuess() {
       const guess = document.getElementById('guessInput').value.trim().toLowerCase();
       const correct = charts[index].answer.toLowerCase();
-
       if (guess === correct) score++;
-
       index++;
 
       if (index < charts.length) {
@@ -93,6 +119,7 @@ permalink: /chart/
         document.getElementById('gameOverMsg').style.display = 'block';
         document.getElementById('gameOverMsg').innerText = '🎉 Game Over! Score submitted.';
         submitScore(score);
+        showDescriptions();
       }
     }
 
@@ -104,8 +131,19 @@ permalink: /chart/
       });
     }
 
-    // Start the game
+    function showDescriptions() {
+      fetch('http://localhost:8887/chart-definitions')
+        .then(res => res.json())
+        .then(definitions => {
+          const descBox = document.getElementById('descriptions');
+          descBox.innerHTML = "<h3>📊 Chart Descriptions:</h3>";
+          definitions.forEach((item, i) => {
+            descBox.innerHTML += `<p><strong>${i + 1}. ${item.answer}:</strong> ${item.description}</p>`;
+          });
+          descBox.style.display = "block";
+        });
+    }
+
     drawChart(charts[index]);
   </script>
 </body>
-
