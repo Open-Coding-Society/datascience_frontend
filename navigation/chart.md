@@ -5,7 +5,6 @@ search_exclude: true
 permalink: /chart/
 ---
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -175,4 +174,3 @@ permalink: /chart/
 
   </script>
 </body>
-</html>
