@@ -5,6 +5,7 @@ search_exclude: true
 permalink: /chart/
 ---
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -13,18 +14,18 @@ permalink: /chart/
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f0f9ff;
+      background-color: #0f172a; /* Dark navy */
       text-align: center;
       padding: 2rem;
-      color: #0c4a6e;
+      color: #f1f5f9; /* Light gray */
     }
     .chart-box {
       margin: 1rem auto;
-      background: white;
+      background: #1e293b; /* Darker box */
       border-radius: 1rem;
       padding: 1rem;
       width: 320px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     }
     canvas {
       margin-top: 1rem;
@@ -33,19 +34,26 @@ permalink: /chart/
       padding: 0.5rem;
       margin: 0.5rem;
       border-radius: 0.5rem;
-      border: 1px solid #93c5fd;
+      border: 1px solid #38bdf8;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    input::placeholder {
+      color: #94a3b8;
     }
     button {
       background-color: #38bdf8;
-      color: white;
+      color: #0f172a;
+      font-weight: bold;
       cursor: pointer;
     }
     #descriptions {
       margin-top: 1rem;
       padding: 1rem;
-      background-color: #e0f2fe;
+      background-color: #334155; /* Slightly lighter dark */
       border-radius: 0.5rem;
       display: none;
+      color: #f1f5f9;
     }
   </style>
 </head>
@@ -97,9 +105,9 @@ permalink: /chart/
 
       chart.data.forEach((value, i) => {
         const height = (value / max) * 150;
-        ctx.fillStyle = '#38bdf8';
+        ctx.fillStyle = '#38bdf8'; // Bar color
         ctx.fillRect(i * (width + gap) + 20, 180 - height, width, height);
-        ctx.fillStyle = '#0c4a6e';
+        ctx.fillStyle = '#f1f5f9'; // Label color
         ctx.fillText(chart.labels[i], i * (width + gap) + 25, 195);
       });
     }
@@ -147,3 +155,4 @@ permalink: /chart/
     drawChart(charts[index]);
   </script>
 </body>
+</html>
