@@ -4,17 +4,23 @@ title: Score Predictor
 permalink: /score/
 ---
 
-<div id="scoreForm" style="background-color:#FFC0CB;padding:1rem;border-radius:12px;max-width:500px;margin:auto;">
-  <label for="mcq">Multiple Choice (out of 60):</label>
+<div id="scoreForm" style="background-color:#FFC0CB;padding:1rem;border-radius:12px;max-width:700px;margin:auto;">
+  <label for="mcq">Multiple Choice:</label>
   <div style="display: flex; align-items: center; gap: 1rem;">
-    <input type="range" id="mcq" min="0" max="60" value="30" oninput="syncInput('mcq')">
-    <input type="number" id="mcqInput" min="0" max="60" value="30" oninput="syncSlider('mcq')">
+    <input type="range" id="mcq" min="0" max="25" value="15" oninput="syncInput('mcq')">
+    <div style="display:flex; align-items: center; gap: 0.25rem;">
+      <input type="number" id="mcqInput" min="0" max="25" value="15" oninput="syncSlider('mcq')">
+      <span>/25</span>
+    </div>
   </div>
 
-  <label for="frq" style="margin-top:1rem;">Free Response (out of 40):</label>
+  <label for="frq" style="margin-top:1rem;">Free Response:</label>
   <div style="display: flex; align-items: center; gap: 1rem;">
-    <input type="range" id="frq" min="0" max="40" value="20" oninput="syncInput('frq')">
-    <input type="number" id="frqInput" min="0" max="40" value="20" oninput="syncSlider('frq')">
+    <input type="range" id="frq" min="0" max="5" value="3" oninput="syncInput('frq')">
+    <div style="display:flex; align-items: center; gap: 0.25rem;">
+      <input type="number" id="frqInput" min="0" max="5" value="3" oninput="syncSlider('frq')">
+      <span>/5</span>
+    </div>
   </div>
 
   <div id="summary" style="margin-top:2rem;">
@@ -22,7 +28,14 @@ permalink: /score/
     <p><strong>MCQ Score:</strong> <span id="mcqScore">50%</span></p>
     <p><strong>FRQ Score:</strong> <span id="frqScore">50%</span></p>
     <p><strong>Total Score:</strong> <span id="totalScore">50%</span></p>
-    <p><strong>Predicted AP Score:</strong> <span id="apScore">3</span></p>
+  </div>
+</div>
+
+  <div id="summary" style="margin-top:2rem;">
+    <h3>Score Summary</h3>
+    <p><strong>MCQ Score:</strong> <span id="mcqScore">50%</span></p>
+    <p><strong>FRQ Score:</strong> <span id="frqScore">50%</span></p>
+    <p><strong>Total Score:</strong> <span id="totalScore">50%</span></p>
   </div>
 </div>
 
@@ -59,7 +72,6 @@ function updateScores() {
   document.getElementById('mcqScore').textContent = `${mcqPercent}%`;
   document.getElementById('frqScore').textContent = `${frqPercent}%`;
   document.getElementById('totalScore').textContent = `${totalPercent}%`;
-  document.getElementById('apScore').textContent = predictedScore;
 }
 
 // Initialize
