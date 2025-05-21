@@ -1,61 +1,67 @@
 ---
 layout: post
 title: Score Predictor
-search_exclude: true
 permalink: /score/
 ---
-<h1>Score Predictor 🎯</h1>
-<p>Enter data to predict your score!</p>
 
-<form id="studentForm">
-  <label for="study">Study Hours (0–10):</label>
-  <input type="number" id="study" min="0" max="10" required>
-  
-  <label for="sleep">Sleep Hours (0–10):</label>
-  <input type="number" id="sleep" min="0" max="10" required>
-  
-  <label for="participation">Participation (0–5):</label>
-  <input type="number" id="participation" min="0" max="5" required>
-  
-  <button type="submit">Predict Success</button>
-</form>
+<div id="scoreForm" style="background-color:#FFC0CB;padding:1rem;border-radius:12px;max-width:500px;margin:auto;">
+  <label for="mcq">Multiple Choice (out of 60):</label>
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    <input type="range" id="mcq" min="0" max="60" value="30" oninput="syncInput('mcq')">
+    <input type="number" id="mcqInput" min="0" max="60" value="30" oninput="syncSlider('mcq')">
+  </div>
 
-<div id="predictionResult"></div>
-<progress id="successBar" value="0" max="100"></progress>
-<img id="avatar" src="neutral.png" alt="Student Avatar" />
-<p id="studentMessage"></p>
+  <label for="frq" style="margin-top:1rem;">Free Response (out of 40):</label>
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    <input type="range" id="frq" min="0" max="40" value="20" oninput="syncInput('frq')">
+    <input type="number" id="frqInput" min="0" max="40" value="20" oninput="syncSlider('frq')">
+  </div>
+
+  <div id="summary" style="margin-top:2rem;">
+    <h3>Score Summary</h3>
+    <p><strong>MCQ Score:</strong> <span id="mcqScore">50%</span></p>
+    <p><strong>FRQ Score:</strong> <span id="frqScore">50%</span></p>
+    <p><strong>Total Score:</strong> <span id="totalScore">50%</span></p>
+    <p><strong>Predicted AP Score:</strong> <span id="apScore">3</span></p>
+  </div>
+</div>
 
 <script>
-  document.getElementById('studentForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
+function syncInput(type) {
+  const val = parseInt(document.getElementById(type).value);
+  document.getElementById(`${type}Input`).value = val;
+  updateScores();
+}
 
-    const study = parseInt(document.getElementById('study').value);
-    const sleep = parseInt(document.getElementById('sleep').value);
-    const participation = parseInt(document.getElementById('participation').value);
+function syncSlider(type) {
+  const val = parseInt(document.getElementById(`${type}Input`).value);
+  const max = parseInt(document.getElementById(type).max);
+  const boundedVal = Math.min(Math.max(0, val), max);
+  document.getElementById(type).value = boundedVal;
+  updateScores();
+}
 
-    const res = await fetch('http://localhost:8887/api/student/predict', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ study, sleep, participation })
-    });
+function updateScores() {
+  const mcq = parseInt(document.getElementById('mcq').value);
+  const frq = parseInt(document.getElementById('frq').value);
 
-    const data = await res.json();
-    const probability = data.success_probability;
+  const mcqPercent = Math.round((mcq / 60) * 100);
+  const frqPercent = Math.round((frq / 40) * 100);
+  const totalRaw = (mcq / 60 * 0.5) + (frq / 40 * 0.5);
+  const totalPercent = Math.round(totalRaw * 100);
 
-    document.getElementById('predictionResult').innerText = `Success Probability: ${probability}%`;
-    document.getElementById('successBar').value = probability;
+  let predictedScore = 1;
+  if (totalPercent >= 90) predictedScore = 5;
+  else if (totalPercent >= 75) predictedScore = 4;
+  else if (totalPercent >= 60) predictedScore = 3;
+  else if (totalPercent >= 45) predictedScore = 2;
 
-    const avatar = document.getElementById('avatar');
-    const msg = document.getElementById('studentMessage');
-    if (probability > 75) {
-      avatar.src = 'happy_student.png';
-      msg.textContent = "You're ready to ace it! 💯";
-    } else if (probability < 40) {
-      avatar.src = 'tired_student.png';
-      msg.textContent = "You might need a break... 😴";
-    } else {
-      avatar.src = 'neutral_student.png';
-      msg.textContent = "Keep going! 📘";
-    }
-  });
+  document.getElementById('mcqScore').textContent = `${mcqPercent}%`;
+  document.getElementById('frqScore').textContent = `${frqPercent}%`;
+  document.getElementById('totalScore').textContent = `${totalPercent}%`;
+  document.getElementById('apScore').textContent = predictedScore;
+}
+
+// Initialize
+updateScores();
 </script>
