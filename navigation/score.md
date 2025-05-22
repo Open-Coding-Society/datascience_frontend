@@ -49,7 +49,7 @@ function syncSlider(type) {
   updateScores();
 }
 
-function updateScores() {
+async function updateScores() {
   const mcq = parseInt(document.getElementById('mcq').value);
   const frq = parseInt(document.getElementById('frq').value);
 
@@ -69,26 +69,29 @@ function updateScores() {
   document.getElementById('totalScore').textContent = `${totalPercent}%`;
 
   // Call backend for percentiles
-  fetch('/api/percentile', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ mcq: mcq, frq: frq })
-  })
-  .then(response => response.json())
-  .then(data => {
+  try {
+    const response = await fetch('/api/percentile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ mcq: mcq, frq: frq })
+    });
+
+    if (!response.ok) throw new Error('Network response was not ok');
+
+    const data = await response.json();
+
     // Update chart with actual percentiles
     percentileChart.data.datasets[0].data = [
-      data.mcq_percentile,
-      data.frq_percentile,
-      totalPercent,
-      100 - data.mcq_percentile,
-      100 - data.frq_percentile
+      100 - data.mcq_percentile,  // Score 1
+      100 - (data.mcq_percentile * 0.8),  // Score 2
+      100 - (data.frq_percentile * 0.5),  // Score 3
+      data.mcq_percentile,  // Score 4
+      data.frq_percentile   // Score 5
     ];
     percentileChart.update();
-  })
-  .catch(error => {
+  } catch (error) {
     console.error('Error fetching percentile:', error);
-  });
+  }
 }
 
 // Initialize
@@ -98,7 +101,7 @@ const ctx = document.getElementById('percentileChart').getContext('2d');
 const percentileChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ['MCQ %ile', 'FRQ %ile', 'Total %', 'MCQ Gap', 'FRQ Gap'],
+    labels: ['MCQ %tile', 'FRQ %tile', 'Total %', 'MCQ Gap', 'FRQ Gap'],
     datasets: [{
       label: 'Live Percentile Data',
       data: [50, 50, 50, 50, 50],
@@ -120,7 +123,7 @@ const percentileChart = new Chart(ctx, {
       x: {
         title: {
           display: true,
-          text: 'Score Components'
+          text: 'Score Range'
         }
       }
     },
