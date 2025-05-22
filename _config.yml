@@ -19,3 +19,4 @@ header_pages:
   - navigation/ai.md
   - navigation/blog.md
   - navigation/search.md
+  - navigation/authentication/logout.md
