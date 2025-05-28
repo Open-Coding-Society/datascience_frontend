@@ -101,7 +101,7 @@ permalink: /movie/
         Fame: parseInt(form.Fame.value),
         MemePotential: parseInt(form.MemePotential.value)
       };
-      const res = await fetch('http://127.0.0.1:8887/predicts', {
+      const res = await fetch('http://127.0.0.1:8887/api/movie/guess', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
