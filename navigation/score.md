@@ -138,7 +138,7 @@ const percentileChart = new Chart(ctx, {
     datasets: [{
       label: 'Live Percentile Data',
       data: [50, 50, 50, 50, 50],
-      backgroundColor: '#FF69B4',
+      backgroundColor: '#1E90FF',
       borderRadius: 10
     }]
   },
