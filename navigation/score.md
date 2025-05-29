@@ -34,6 +34,8 @@ permalink: /score/
   <canvas id="percentileChart" width="600" height="300" style="margin-top: 3rem;"></canvas>
 </div>
 
+<div id="percentileInfo" style="margin-top: 1.5rem; font-size: 1.5rem;"></div>
+
 <script>
 function syncInput(type) {
   const val = parseInt(document.getElementById(type).value);
@@ -70,7 +72,7 @@ async function updateScores() {
 
   // Call backend for percentiles
   try {
-    const response = await fetch('/api/percentile', {
+    const response = await fetch('http://localhost:8887/api/score/percentile', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ mcq: mcq, frq: frq })
@@ -95,7 +97,6 @@ async function updateScores() {
 }
 
 // Initialize
-updateScores();
 
 const ctx = document.getElementById('percentileChart').getContext('2d');
 const percentileChart = new Chart(ctx, {
@@ -134,4 +135,6 @@ const percentileChart = new Chart(ctx, {
     }
   }
 });
+updateScores();
+
 </script>
