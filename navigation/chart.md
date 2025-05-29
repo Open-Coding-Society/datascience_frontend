@@ -77,7 +77,7 @@ permalink: /chart/
         comorbidities: parseInt(document.getElementById('comorbidities').value)
       };
 
-      const res = await fetch('http://127.0.0.1:8887/api/influenza/predict', {
+      const res = await fetch('http://127.0.0.1:8887/api/influenza/survive-or-thrive', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
