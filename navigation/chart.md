@@ -4,7 +4,7 @@ title: Surviving Sickness
 search_exclude: true
 permalink: /chart/
 ---
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -12,36 +12,52 @@ permalink: /chart/
   <style>
     body {
       font-family: sans-serif;
-      background-color: #ffe4e1;
+      background-color: #1b2e1b; /* dark green */
       padding: 20px;
       display: flex;
       justify-content: center;
     }
     form {
-      background: #fff0f5;
+      background: #2f4f2f; /* forest green */
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 0 10px #ffc0cb;
-      width: 300px;
+      box-shadow: 0 0 10px #006400; /* dark green glow */
+      width: 320px;
+      color: #e0ffe0; /* light green text */
     }
     label, select, input {
       display: block;
       margin-top: 15px;
       width: 100%;
+      font-size: 14px;
+    }
+    input, select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #88cc88;
+      background-color: #eaffea;
     }
     button {
       margin-top: 20px;
-      background: #ff69b4;
+      background: #228b22; /* forest green */
       color: white;
       padding: 10px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
     }
+    button:hover {
+      background-color: #2ecc71; /* emerald green */
+    }
     #result {
       margin-top: 20px;
       text-align: center;
       font-weight: bold;
+      color: #b0ffb0;
+    }
+    h2 {
+      text-align: center;
+      color: #ccffcc;
     }
   </style>
 </head>
@@ -89,5 +105,4 @@ permalink: /chart/
     });
   </script>
 </body>
-</html>
 
