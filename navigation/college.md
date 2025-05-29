@@ -6,10 +6,22 @@ permalink: /college/
 ---
 
 
-
 <h1 class="text-4xl font-bold mb-6 text-center text-blue-700">🎓 UC College Acceptance Predictor</h1>
 
+
 <div class="max-w-lg mx-auto p-6 bg-silver rounded-2xl shadow-lg space-y-4">
+<div style="position: relative;">
+  <div style="position: absolute; top: 0.5rem; right: 0.5rem;">
+    <div style="position: relative;">
+      <button id="helpBtn" style="background-color: white; border: 2px solid #333; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; font-size: 1.2rem; cursor: help;">?</button>
+        <div id="tooltip" style="display: none; position: absolute; top: 40px; right: 0; background: rgb(65, 83, 201); color: white; border: 1px solid #ccc; border-radius: 12px; padding: 1rem; width: 400px; font-size: 1rem; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); z-index: 10; white-space: normal; word-wrap: break-word;">
+        <strong>How it Works:</strong>
+        <p> This college predictor model is a practical tool for future students to estimate their admission chances using real-world data, showcasing how data science transforms complex datasets into meaningful, personalized insights for informed decision-making.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
   <div>
     <label class="block font-semibold mb-1">📚 GPA</label>
     <input type="number" step="0.01" id="gpa" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
@@ -38,6 +50,21 @@ permalink: /college/
 <div id="results" class="max-w-lg mx-auto mt-6 text-center text-lg font-medium"></div>
 
 <script>
+  // Hover effect for the "?" tooltip
+  const helpButton = document.querySelector('button');
+  const tooltip = helpButton.nextElementSibling;
+  helpButton.addEventListener('mouseenter', () => {
+    tooltip.style.display = 'block';
+  });
+  helpButton.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+  tooltip.addEventListener('mouseenter', () => {
+    tooltip.style.display = 'block';
+  });
+  tooltip.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
   async function predict() {
     const data = {
       gpa: parseFloat(document.getElementById('gpa').value),
@@ -54,7 +81,8 @@ permalink: /college/
     });
 
     const result = await response.json();
-    const chance = result.predicted_chance;
+    let chance = result.predicted_chance;
+chance = Math.max(0, Math.min(100, chance)); // clamp between 0 and 100
     
     document.getElementById('results').innerHTML = `
       <div class="p-4 mt-4 bg-green-100 text-green-800 rounded-xl shadow">
