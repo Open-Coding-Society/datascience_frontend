@@ -7,6 +7,19 @@ permalink: /score/
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <div id="scoreForm" style="background-color:#FFC0CB;padding:2rem;border-radius:12px;max-width:700px;margin:auto; font-size:1.5rem;">
+<!-- Help Button in top-right of pink box -->
+<div style="position: relative;">
+  <div style="position: absolute; top: 0.5rem; right: 0.5rem;">
+    <div style="position: relative;">
+      <button id="helpBtn" style="background-color: white; border: 2px solid #333; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; font-size: 1.2rem; cursor: help;">?</button>
+      <div id="tooltip" style="display: none; position: absolute; top: 40px; right: 0; background: rgb(65, 83, 201); color: white; border: 1px solid #ccc; border-radius: 12px; padding: 1rem; width: 400px; font-size: 1rem; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); z-index: 10; white-space: normal; word-wrap: break-word;">
+        <strong>How it Works:</strong>
+        <p> The backend uses scikit-learn’s QuantileTransformer to convert raw MCQ and FRQ scores into percentile values by learning from a dataset of past scores. When users input their scores on the frontend, the data is sent to a Flask API, where the backend applies the transformer to map the scores to a uniform distribution. This effectively shows each user's percentile ranking compared to the sample data, which is then returned and displayed on the frontend.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
   <label for="mcq" style="font-size:1.75rem;">Multiple Choice:</label>
   <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
     <input type="range" id="mcq" min="0" max="25" value="15" oninput="syncInput('mcq')" style="flex:1;">
@@ -37,6 +50,25 @@ permalink: /score/
 <div id="percentileInfo" style="margin-top: 1.5rem; font-size: 1.5rem;"></div>
 
 <script>
+// Hover effect for the "?" tooltip
+const helpButton = document.querySelector('button');
+const tooltip = helpButton.nextElementSibling;
+
+helpButton.addEventListener('mouseenter', () => {
+  tooltip.style.display = 'block';
+});
+
+helpButton.addEventListener('mouseleave', () => {
+  tooltip.style.display = 'none';
+});
+
+tooltip.addEventListener('mouseenter', () => {
+  tooltip.style.display = 'block';
+});
+tooltip.addEventListener('mouseleave', () => {
+  tooltip.style.display = 'none';
+});
+
 function syncInput(type) {
   const val = parseInt(document.getElementById(type).value);
   document.getElementById(`${type}Input`).value = val;
@@ -106,7 +138,7 @@ const percentileChart = new Chart(ctx, {
     datasets: [{
       label: 'Live Percentile Data',
       data: [50, 50, 50, 50, 50],
-      backgroundColor: '#FF69B4',
+      backgroundColor: '#1E90FF',
       borderRadius: 10
     }]
   },
