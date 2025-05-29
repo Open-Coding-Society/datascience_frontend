@@ -83,11 +83,24 @@ permalink: /college/
     const result = await response.json();
     let chance = result.predicted_chance;
 chance = Math.max(0, Math.min(100, chance)); // clamp between 0 and 100
+function getLikelyUC(chance) {
+  if (chance >= 90) return "UC Berkeley or UCLA 🎉 (Top Tier)";
+  if (chance >= 75) return "UC San Diego or UC Irvine 🌟 (Highly Competitive)";
+  if (chance >= 60) return "UC Davis or UC Santa Barbara ✅ (Solid Match)";
+  if (chance >= 45) return "UC Riverside or UC Santa Cruz 💪 (Likely)";
+  if (chance >= 30) return "UC Merced 🌱 (Safe Option)";
+  return "A UC might be tough with current stats – but never say never! 💫";
+}
+
     
-    document.getElementById('results').innerHTML = `
-      <div class="p-4 mt-4 bg-green-100 text-green-800 rounded-xl shadow">
-        <h2 class="text-2xl font-bold mb-2">🌟 Predicted Acceptance Chance</h2>
-        <p class="text-3xl">${chance}%</p>
-      </div>`;
+    const likelyUC = getLikelyUC(chance);
+
+document.getElementById('results').innerHTML = `
+  <div class="p-4 mt-4 bg-green-100 text-green-800 rounded-xl shadow">
+    <h2 class="text-2xl font-bold mb-2">🌟 Predicted Acceptance Chance</h2>
+    <p class="text-3xl mb-2">${chance}%</p>
+    <p class="text-lg">🎯 Best UC match: <strong>${likelyUC}</strong></p>
+  </div>`;
+
   }
 </script>
