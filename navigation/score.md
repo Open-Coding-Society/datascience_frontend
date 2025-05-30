@@ -14,7 +14,7 @@ permalink: /score/
       <button id="helpBtn" style="background-color: white; border: 2px solid #333; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; font-size: 1.2rem; cursor: help;">?</button>
       <div id="tooltip" style="display: none; position: absolute; top: 40px; right: 0; background: rgb(65, 83, 201); color: white; border: 1px solid #ccc; border-radius: 12px; padding: 1rem; width: 400px; font-size: 1rem; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); z-index: 10; white-space: normal; word-wrap: break-word;">
         <strong>How it Works:</strong>
-        <p> The backend uses scikit-learn’s QuantileTransformer to convert raw MCQ and FRQ scores into percentile values by learning from a dataset of past scores. When users input their scores on the frontend, the data is sent to a Flask API, where the backend applies the transformer to map the scores to a uniform distribution. This effectively shows each user's percentile ranking compared to the sample data, which is then returned and displayed on the frontend.
+        <p> The backend uses scikit-learn’s QuantileTransformer to convert raw MCQ and FRQ scores into percentile values by learning from a dataset of past scores. When users input their scores on the frontend, the data is sent to a Flask API, where the backend applies the transformer to map the scores to a uniform distribution. This effectively shows each user's percentile ranking compared to the data, which is then returned and displayed on the frontend.
         </p>
       </div>
     </div>
