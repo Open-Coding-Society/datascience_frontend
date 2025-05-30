@@ -5,124 +5,219 @@ search_exclude: true
 permalink: /titanic/
 ---
 
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Titanic Survival Prediction</title>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #121212;
-      padding: 20px;
-      color: white;
-    }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: #000;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-    }
-    h2 {
+    h2, h3 {
       text-align: center;
-      color: white;
+      color: #ffffff;
     }
+
     label {
       display: block;
-      margin-top: 15px;
-      color: white;
+      margin: 10px 0 5px;
+      font-weight: bold;
     }
+
     input, select {
       width: 100%;
       padding: 8px;
-      margin-top: 5px;
       border-radius: 5px;
-      border: 1px solid #666;
+      border: 1px solid #333;
       background-color: #1e1e1e;
       color: white;
     }
+
     button {
+      margin-top: 15px;
+      padding: 10px;
       width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      background-color: #007BFF;
+      background-color: #007bff;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #0056b3;
     }
+
     .result {
       margin-top: 20px;
-      text-align: center;
-      font-size: 18px;
-      padding: 10px;
+      padding: 15px;
+      background-color: #000;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(255,255,255,0.1);
+    }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin: 8px 0;
+      padding: 6px 10px;
+      background: #1f1f1f;
+      border-radius: 6px;
+      color: #fff;
+    }
+
+    /* Custom toggle switch style */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .checkbox-group {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-label {
+      flex-grow: 1;
+    }
+
+    canvas {
+      display: block;
+      margin: 0 auto;
       background-color: #1e1e1e;
-      border-radius: 10px;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Titanic Survival Predictor</h2>
-    <form id="titanic-form">
-      <label for="name">Name:</label>
-      <input type="text" id="name" required />
 
-      <label for="pclass">Passenger Class:</label>
-      <select id="pclass" required>
-        <option value="1">1st</option>
-        <option value="2">2nd</option>
-        <option value="3">3rd</option>
-      </select>
+  <h2>Titanic Survival Prediction</h2>
+  <form id="titanic-form">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" required />
 
-      <label for="sex">Sex:</label>
-      <select id="sex" required>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
+    <label for="pclass">Passenger Class (1 = 1st, 2 = 2nd, 3 = 3rd):</label>
+    <select id="pclass" required>
+      <option value="1">1st</option>
+      <option value="2">2nd</option>
+      <option value="3">3rd</option>
+    </select>
 
-      <label for="age">Age:</label>
-      <input type="number" id="age" min="0" step="any" required />
+    <label for="sex">Sex:</label>
+    <select id="sex" required>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
 
-      <label for="sibsp">Siblings/Spouses Aboard:</label>
-      <input type="number" id="sibsp" min="0" required />
+    <label for="age">Age:</label>
+    <input type="number" id="age" min="0" step="0.1" required />
 
-      <label for="parch">Parents/Children Aboard:</label>
-      <input type="number" id="parch" min="0" required />
+    <label for="sibsp">Number of Siblings/Spouses Aboard:</label>
+    <input type="number" id="sibsp" min="0" required />
 
-      <label for="fare">Fare Paid:</label>
-      <input type="number" id="fare" step="any" min="0" required />
+    <label for="parch">Number of Parents/Children Aboard:</label>
+    <input type="number" id="parch" min="0" required />
 
-      <label for="embarked">Embarked Port:</label>
-      <select id="embarked" required>
-        <option value="C">Cherbourg</option>
-        <option value="Q">Queenstown</option>
-        <option value="S">Southampton</option>
-      </select>
+    <label for="fare">Fare Paid:</label>
+    <input type="number" id="fare" min="0" step="0.01" required />
 
-      <div class="checkbox-group">
-        <input type="checkbox" id="alone" />
-        <label for="alone">Traveling Alone</label>
-      </div>
+    <label for="embarked">Port of Embarkation:</label>
+    <select id="embarked" required>
+      <option value="C">Cherbourg</option>
+      <option value="Q">Queenstown</option>
+      <option value="S">Southampton</option>
+    </select>
 
-      <button type="submit">Predict Survival</button>
-    </form>
+    <label for="alone">Traveling Alone:</label>
+    <select id="alone" required>
+      <option value="true">Yes</option>
+      <option value="false">No</option>
+    </select>
 
-    <div class="result" id="result"></div>
+    <div class="checkbox-group">
+      <span class="checkbox-label">Share My Prediction Publicly</span>
+      <label class="switch">
+        <input type="checkbox" id="share" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <button type="submit">Predict Survival</button>
+  </form>
+
+  <div class="result" id="result"></div>
+
+  <!-- Added canvas for pie chart -->
+  <canvas id="predictionChart" width="400" height="400" style="margin-top: 20px;"></canvas>
+
+  <div class="result" id="shared-results">
+    <h3>Public Predictions</h3>
+    <ul id="shared-list"></ul>
   </div>
 
   <script>
+    function updateSharedResults() {
+      const shared = JSON.parse(localStorage.getItem("sharedPredictions") || "[]");
+      const list = document.getElementById("shared-list");
+      list.innerHTML = "";
+      shared.forEach(entry => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${entry.name}</strong>: ${entry.survive}% survive, ${entry.die}% die`;
+        list.appendChild(li);
+      });
+    }
+
     document.getElementById("titanic-form").addEventListener("submit", async function (e) {
       e.preventDefault();
 
+      const name = document.getElementById("name").value;
       const data = {
-        name: [document.getElementById("name").value],
+        name: [name],
         pclass: [parseInt(document.getElementById("pclass").value)],
         sex: [document.getElementById("sex").value],
         age: [parseFloat(document.getElementById("age").value)],
@@ -133,11 +228,13 @@ permalink: /titanic/
         alone: [document.getElementById("alone").checked]
       };
 
+      const share = document.getElementById("share").checked;
       const responseBox = document.getElementById("result");
       responseBox.innerHTML = "Predicting...";
 
       try {
-        const res = await fetch("http://127.0.0.1:8887/api/titanic/predict", {          method: "POST",
+        const res = await fetch("http://127.0.0.1:8887/api/titanic/predict", {
+          method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data)
         });
@@ -153,10 +250,57 @@ permalink: /titanic/
           <span style="color: red;">Death Probability: ${die}%</span><br/>
           <span style="color: lime;">Survival Probability: ${survive}%</span>
         `;
+
+        // Remove existing chart if it exists
+        if (window.predictionChart instanceof Chart) {
+          window.predictionChart.destroy();
+        }
+
+        // Draw pie chart
+        const ctx = document.getElementById("predictionChart").getContext("2d");
+        window.predictionChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: ["Survive", "Die"],
+            datasets: [{
+              data: [survive, die],
+              backgroundColor: ["#00ff00", "#ff0000"]
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: {
+                  color: "white"
+                }
+              },
+              title: {
+                display: true,
+                text: "Survival vs Death Probability",
+                color: "white",
+                font: {
+                  size: 18
+                }
+              }
+            }
+          }
+        });
+
+        if (share) {
+          const shared = JSON.parse(localStorage.getItem("sharedPredictions") || "[]");
+          shared.push({ name, survive, die });
+          localStorage.setItem("sharedPredictions", JSON.stringify(shared));
+          updateSharedResults();
+        }
       } catch (err) {
         responseBox.innerHTML = "Error: Could not get prediction.";
         console.error(err);
       }
     });
+
+    window.addEventListener("DOMContentLoaded", updateSharedResults);
   </script>
+
 </body>
