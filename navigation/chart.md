@@ -78,7 +78,7 @@ permalink: /chart/
   }
 </style>
 
-<h2 class="module-title">Survival Sickness</h2>
+<h2 class="module-title">Surviving Sickness</h2>
 <form id="form">
   <h2>🧬 Predict Survival </h2>
   <label>Age: <input type="number" id="age" required /></label>
