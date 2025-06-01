@@ -5,11 +5,11 @@ search_exclude: true
 permalink: /travel/
 ---
 
-<head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Travel Recommendation</title>
-  <style>
+<style>
     body {
       font-family: Arial, sans-serif;
       padding: 40px;
@@ -75,9 +75,9 @@ permalink: /travel/
       color: #006400;
       min-height: 1.4em;
     }
-  </style>
-</head>
-<body>
+</style>
+
+
   <div class="container">
     <h1>Find Your Perfect Travel Destination 🌍</h1>
     <form id="travelForm">
@@ -160,4 +160,4 @@ permalink: /travel/
       }
     });
   </script>
-</body>
+
