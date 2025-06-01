@@ -119,6 +119,11 @@ permalink: /travel/
       <button type="submit">Get Recommendation</button>
     </form>
     <div id="result"></div>
+          <div style="text-align: center; margin-top: 20px;">
+      <a href="http://127.0.0.1:4887/datascience_frontend/TravelTeach/" target="_blank">
+        <button type="button" style="background-color:rgba(70, 94, 152, 0.8);">Learn how this feature works</button>
+      </a>
+    </div>
   </div>
 
   <script>
@@ -165,4 +170,5 @@ permalink: /travel/
     }
   });
 </script>
+
 
