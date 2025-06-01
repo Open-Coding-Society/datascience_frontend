@@ -149,15 +149,20 @@ permalink: /travel/
 
         const result = await response.json();
 
-        if (result.destination) {
-          resultDiv.textContent = `We recommend visiting: ${result.destination}`;
-        } else {
-          resultDiv.textContent = `❌ No recommendation found.`;
-        }
-      } catch (err) {
-        resultDiv.textContent = "❌ Error connecting to the server.";
-        console.error(err);
+        if (result.destination && result.activitySuggestion) {
+        resultDiv.innerHTML = `
+          <h3>🌍 Recommended Destination:</h3>
+          <p>${result.destination}</p>
+          <h3>🎯 Suggested Activity:</h3>
+          <p>${result.activitySuggestion}</p>
+        `;
+      } else {
+        resultDiv.textContent = `❌ No recommendation found.`;
       }
-    });
-  </script>
+    } catch (err) {
+      resultDiv.textContent = "❌ Error connecting to the server.";
+      console.error(err);
+    }
+  });
+</script>
 
