@@ -134,18 +134,23 @@ permalink: /travel/
       resultDiv.textContent = "Loading recommendation...";
 
       try {
-        const response = await fetch('http://localhost:8887/api/travel/recommend', {
+        const response = await fetch('http://localhost:8887/api/destination/recommend', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ season, activity, budget, continent })
+          body: JSON.stringify({
+              season: season.toLowerCase(),
+              activity: activity.toLowerCase(),
+              budget: budget.toLowerCase(),
+              continent: continent.toLowerCase()
+           })
         });
 
         if (!response.ok) throw new Error("Request failed");
 
         const result = await response.json();
 
-        if (result.recommended_destination) {
-          resultDiv.textContent = `We recommend visiting: ${result.recommended_destination}`;
+        if (result.destination) {
+          resultDiv.textContent = `We recommend visiting: ${result.destination}`;
         } else {
           resultDiv.textContent = `❌ No recommendation found.`;
         }
