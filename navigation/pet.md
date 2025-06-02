@@ -1,6 +1,6 @@
 ---
 layout: post
-title: AI Pet Model
+title: Pet Training
 search_exclude: true
 permalink: /train/
 ---
@@ -114,11 +114,14 @@ permalink: /train/
     }
 </style>
 
-
+<body data-baseurl="{{ site.baseurl }}">
   <h1>ML Pet Trainer 🐶</h1>
-
-
   <form id="petForm">
+    <label for="petSelect">Choose your pet:</label>
+      <select id="petSelect" name="petSelect">
+        <option value="dog">Dog 🐶</option>
+        <option value="cat">Cat 🐱</option>
+     </select>
     <label for="food">Food (1–5):</label>
     <input type="number" id="food" name="food" min="1" max="5" required>
     <label for="play">Play (1–5):</label>
@@ -134,17 +137,29 @@ permalink: /train/
   <progress id="happinessBar" value="0" max="10"></progress>
 
   <div id="petImage" style="position: relative; display: inline-block;">
-    <img id="petPic" src="{{site.baseurl}}/images/neutral.png" alt="AI Pet">
+    <img id="petPic" alt="AI Pet">
   </div>
+
   <div id="petSpeech"></div>
 
 
   <script>
     const form = document.getElementById('petForm');
+    const petSelect = document.getElementById('petSelect');
     const resultDiv = document.getElementById('result');
     const petPic = document.getElementById('petPic');
     const petSpeech = document.getElementById('petSpeech');
     const happinessBar = document.getElementById('happinessBar');
+    const baseUrl = document.body.dataset.baseurl;  
+
+// Update image when user selects a different pet
+    petSelect.addEventListener('change', () => {
+      const selectedPet = petSelect.value;
+      petPic.src = `${baseUrl}/images/${selectedPet}-neutral.png`;
+      petSpeech.textContent = "I'm ready for training!";
+    });
+    const defaultPet = petSelect.value;
+    petPic.src = `${baseUrl}/images/${defaultPet}-neutral.png`;
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -152,6 +167,9 @@ form.addEventListener('submit', async (e) => {
   const food = parseInt(document.getElementById('food').value);
   const play = parseInt(document.getElementById('play').value);
   const sleep = parseInt(document.getElementById('sleep').value);
+
+  const pet = petSelect.value;  // get selected pet
+
 
   try {
     const response = await fetch('http://localhost:8887/api/pet/predict', {
@@ -166,15 +184,22 @@ form.addEventListener('submit', async (e) => {
     resultDiv.innerHTML = `<h3>Predicted Happiness: ${happiness}</h3>`;
     happinessBar.value = happiness;
 
-    // Update pet image and speech
-    let imageSrc = "{{site.baseurl}}/images/neutral.png";
+    // Update pet image and speech 
+    let imageSrc = `${baseUrl}/images/${pet}-neutral.png`;
     let message = "I'm okay... maybe a snack?";
 
     if (happiness > 8) {
-      imageSrc = "{{site.baseurl}}/images/happy.png";
+      imageSrc = `${baseUrl}/images/${pet}-happy.png`;
       message = "I'm feeling pawsome! 🐾";
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.top = `${Math.random() * 100}px`;
+      sparkle.style.left = `${Math.random() * 300}px`;
+      document.getElementById('petImage').appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1500);
+
     } else if (happiness < 5) {
-      imageSrc = "{{site.baseurl}}/images/sad.png";
+      imageSrc = `${baseUrl}/images/${pet}-sad.png`;
       message = "I'm feeling ruff... 🥺";
     }
 
@@ -193,3 +218,9 @@ form.addEventListener('submit', async (e) => {
 });
   </script>
 
+</body>
+<a href="https://open-coding-society.github.io/datascience_frontend/pets/" target="_blank">
+  <button style="padding:10px 20px; font-size:16px; border:5x; background-color:#4CAF50; color:white; border-radius:6px; cursor:pointer;">
+    More Info Here
+  </button>
+</a>
