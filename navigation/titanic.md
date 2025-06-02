@@ -225,7 +225,7 @@ permalink: /titanic/
         parch: [parseInt(document.getElementById("parch").value)],
         fare: [parseFloat(document.getElementById("fare").value)],
         embarked: [document.getElementById("embarked").value],
-        alone: [document.getElementById("alone").checked]
+        alone: [document.getElementById("alone").value === "true"]
       };
 
       const share = document.getElementById("share").checked;
@@ -234,10 +234,11 @@ permalink: /titanic/
 
       try {
         const res = await fetch("http://127.0.0.1:8887/api/titanic/predict", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",  // <-- this line is new
+        body: JSON.stringify(data)
+      });
 
         if (!res.ok) throw new Error("Prediction failed");
 
@@ -252,7 +253,7 @@ permalink: /titanic/
         `;
 
         // Remove existing chart if it exists
-        if (window.predictionChart instanceof Chart) {
+        if (window.predictionChart) {
           window.predictionChart.destroy();
         }
 
