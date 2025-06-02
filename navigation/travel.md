@@ -119,6 +119,11 @@ permalink: /travel/
       <button type="submit">Get Recommendation</button>
     </form>
     <div id="result"></div>
+          <div style="text-align: center; margin-top: 20px;">
+      <a href="http://127.0.0.1:4887/datascience_frontend/TravelTeach/" target="_blank">
+        <button type="button" style="background-color:rgba(70, 94, 152, 0.8);">Learn how this feature works</button>
+      </a>
+    </div>
   </div>
 
   <script>
@@ -149,15 +154,21 @@ permalink: /travel/
 
         const result = await response.json();
 
-        if (result.destination) {
-          resultDiv.textContent = `We recommend visiting: ${result.destination}`;
-        } else {
-          resultDiv.textContent = `❌ No recommendation found.`;
-        }
-      } catch (err) {
-        resultDiv.textContent = "❌ Error connecting to the server.";
-        console.error(err);
+        if (result.destination && result.activitySuggestion) {
+        resultDiv.innerHTML = `
+          <h3>🌍 Recommended Destination:</h3>
+          <p>${result.destination}</p>
+          <h3>🎯 Suggested Activity:</h3>
+          <p>${result.activitySuggestion}</p>
+        `;
+      } else {
+        resultDiv.textContent = `❌ No recommendation found.`;
       }
-    });
-  </script>
+    } catch (err) {
+      resultDiv.textContent = "❌ Error connecting to the server.";
+      console.error(err);
+    }
+  });
+</script>
+
 
