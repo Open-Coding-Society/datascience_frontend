@@ -1,7 +1,6 @@
 ---
 layout: post
 title: College Acceptance Model
-search_exclude: true
 permalink: /college/
 ---
 
