@@ -5,8 +5,7 @@ search_exclude: true
 permalink: /titanic/
 ---
 
-<!-- Meta and Title tags must be avoided in markdown unless injected via layout -->
-<!-- Instead, move CSS and JS into the body or layout -->
+
 
 <h2>Titanic Survival Prediction</h2>
 
