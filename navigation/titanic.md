@@ -9,6 +9,7 @@ permalink: /titanic/
 
 <h2>Titanic Survival Prediction</h2>
 
+
 <form id="titanic-form">
   <label for="name">Your Name:</label>
   <input type="text" id="name" required />
