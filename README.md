@@ -11,6 +11,7 @@ This project has three main goals:
 - **Teach Data Science**: Offer lessons on topics like statistics, machine learning, data visualization, and Python.
 - **Promote Peer Learning**: Allow students to create and share educational content.
 - **Provide a Central Hub**: Host a single-page website with curated explanations and resources covering major topics in data science.
+- **Allow Coders to Use and Create**: Allow students to create and develop using our ML and functional features for data science
 
 ---
 
