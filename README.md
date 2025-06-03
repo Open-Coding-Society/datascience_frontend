@@ -11,6 +11,7 @@ This project has three main goals:
 - **Teach Data Science**: Offer lessons on topics like statistics, machine learning, data visualization, and Python.
 - **Promote Peer Learning**: Allow students to create and share educational content.
 - **Provide a Central Hub**: Host a single-page website with curated explanations and resources covering major topics in data science.
+- **Allow Coders to Use and Create**: Allow students to create and develop using our ML and functional features for data science
 
 ---
 
@@ -32,9 +33,14 @@ This project has three main goals:
 - **Live Demos**  
   Flask and Python APIs (e.g., Titanic API) that let students analyze and transform real-world data.
 
+- **Other Features Include**
+   Survivng Sickness, Titanic, AI Trainer, Travel Recommendor, Score Predictor, College Predictor. 
+
 ---
 
 ## Getting Started
+
+This project has various blogs for every features that has detailed documentations of how to write and understand the code. Refer to those blogs (linked in our head navigatin page) to gain access to the information. 
 
 To get started with the project:
 

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: College Acceptance Model
-search_exclude: true
 permalink: /college/
 ---
 
@@ -17,6 +16,9 @@ permalink: /college/
         <div id="tooltip" style="display: none; position: absolute; top: 40px; right: 0; background: rgb(65, 83, 201); color: white; border: 1px solid #ccc; border-radius: 12px; padding: 1rem; width: 400px; font-size: 1rem; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); z-index: 10; white-space: normal; word-wrap: break-word;">
         <strong>How it Works:</strong>
         <p> This college predictor model is a practical tool for future students to estimate their admission chances using real-world data, showcasing how data science transforms complex datasets into meaningful, personalized insights for informed decision-making.
+        <a href="../collegeblog/" target="_blank" rel="noopener noreferrer">
+        View the how the score predictor work, step-by-step!
+        </a>
         </p>
       </div>
     </div>

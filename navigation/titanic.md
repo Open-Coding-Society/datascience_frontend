@@ -9,7 +9,21 @@ permalink: /titanic/
 
 <h2>Titanic Survival Prediction</h2>
 
+<div style="position: relative;">
 <form id="titanic-form">
+  <div style="position: absolute; top: 0.5rem; right: 0.5rem;">
+    <div style="position: relative;">
+      <button id="helpBtn" style="background-color: white; border: 2px solid #333; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; font-size: 1.2rem; cursor: help;">?</button>
+      <div id="tooltip" style="display: none; position: absolute; top: 40px; right: 0; background: rgb(65, 83, 201); color: white; border: 1px solid #ccc; border-radius: 12px; padding: 1rem; width: 400px; font-size: 1rem; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); z-index: 10; white-space: normal; word-wrap: break-word;">
+        <strong>How it Works:</strong>
+        <p> The backend uses scikit-learn’s QuantileTransformer to convert raw MCQ and FRQ scores into percentile values by learning from a dataset of past scores. When users input their scores on the frontend, the data is sent to a Flask API, where the backend applies the transformer to map the scores to a uniform distribution. This effectively shows each user's percentile ranking compared to the data, which is then returned and displayed on the frontend.
+        <a href="../scoreblog/" target="_blank" rel="noopener noreferrer">
+        View the how the score predictor work, step-by-step!
+        </a>
+        </p>
+      </div>
+    </div>
+  </div>
   <label for="name">Your Name:</label>
   <input type="text" id="name" required />
 
@@ -195,6 +209,25 @@ permalink: /titanic/
 </style>
 
 <script>
+// Hover effect for the "?" tooltip
+const helpButton = document.querySelector('button');
+const tooltip = helpButton.nextElementSibling;
+
+helpButton.addEventListener('mouseenter', () => {
+  tooltip.style.display = 'block';
+});
+
+helpButton.addEventListener('mouseleave', () => {
+  tooltip.style.display = 'none';
+});
+
+tooltip.addEventListener('mouseenter', () => {
+  tooltip.style.display = 'block';
+});
+tooltip.addEventListener('mouseleave', () => {
+  tooltip.style.display = 'none';
+});
+
   function updateSharedResults() {
     const shared = JSON.parse(localStorage.getItem("sharedPredictions") || "[]");
     const list = document.getElementById("shared-list");
