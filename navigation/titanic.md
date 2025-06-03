@@ -9,6 +9,21 @@ permalink: /titanic/
 
 <h2>Titanic Survival Prediction</h2>
 
+<div style="position: relative;">
+  <div style="position: absolute; top: 0.5rem; right: 0.5rem;">
+    <div style="position: relative;">
+      <button id="helpBtn" style="background-color: white; border: 2px solid #333; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; font-size: 1.2rem; cursor: help;">?</button>
+      <div id="tooltip" style="display: none; position: absolute; top: 40px; right: 0; background: rgb(65, 83, 201); color: white; border: 1px solid #ccc; border-radius: 12px; padding: 1rem; width: 400px; font-size: 1rem; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); z-index: 10; white-space: normal; word-wrap: break-word;">
+        <strong>How it Works:</strong>
+        <p> The model loads and cleans Titanic dataset, converting categorical values and encoding ports of embarkation.It trains a logistic regression model to predict survival, and a decision tree to evaluate feature importance. A singleton pattern ensures the model is trained once and reused for predictions.Predictions are made by transforming user input and outputting survival and death probabilities.
+        <a href="../scoreblog/" target="_blank" rel="noopener noreferrer">
+        View the how the score predictor work, step-by-step!
+        </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <form id="titanic-form">
   <label for="name">Your Name:</label>
