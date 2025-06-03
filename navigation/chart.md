@@ -148,7 +148,7 @@ permalink: /chart/
 
 
 </body>
-<a href="https://open-coding-society.github.io/datascience_frontend/pets/" target="_blank">
+<a href="https://prajnar123123213.github.io/datascience_frontend/survivingblog/" target="_blank">
   <button style="padding:10px 20px; font-size:16px; border:5x; background-color:#4CAF50; color:white; border-radius:6px; cursor:pointer;">
     More Info Here
   </button>
