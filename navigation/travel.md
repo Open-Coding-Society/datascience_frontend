@@ -6,6 +6,23 @@ permalink: /travel/
 ---
 
 
+<!-- Help Button in top-right of pink box -->
+<div style="position: relative;">
+  <div style="position: absolute; top: 0.5rem; right: 1.5rem;">
+    <div style="position: relative;">
+      <button id="helpBtn" style="background-color: white; border: 2px solid #333; border-radius: 50%; width: 35px; height: 35px; font-weight: bold; font-size: 1.2rem; cursor: help;">?</button>
+      <div id="tooltip" style="display: none; position: absolute; top: 40px; right: 0; background: rgb(65, 83, 201); color: white; border: 1px solid #ccc; border-radius: 12px; padding: 1rem; width: 400px; font-size: 1rem; box-shadow: 0px 4px 10px rgba(0,0,0,0.1); z-index: 10; white-space: normal; word-wrap: break-word;">
+        <strong>How it Works:</strong>
+        <p> The backend of this feature uses a decision tree model trained on a real-world travel preferences dataset to recommend destinations. When users select their preferred season, activity type, budget, and continent on the frontend, the data is sent to a Flask API. The backend processes these inputs and predicts the most suitable travel destination along with a suggested activity. The recommendation is then returned and dynamically displayed on the frontend, helping users discover ideal locations tailored to their interests.
+        <a href="http://127.0.0.1:4887/datascience_frontend/TravelTeach/" target="_blank" rel="noopener noreferrer">
+        View the how the travel recommender works, step-by-step!
+        </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Travel Recommendation</title>
@@ -77,7 +94,6 @@ permalink: /travel/
     }
 </style>
 
-
   <div class="container">
     <h1>Find Your Perfect Travel Destination 🌍</h1>
     <form id="travelForm">
@@ -127,6 +143,26 @@ permalink: /travel/
   </div>
 
   <script>
+      // Tooltip toggle
+  const helpBtn = document.getElementById('helpBtn');
+  const tooltip = document.getElementById('tooltip');
+
+  helpBtn.addEventListener('mouseenter', () => {
+    tooltip.style.display = 'block';
+  });
+
+  helpBtn.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+
+  tooltip.addEventListener('mouseenter', () => {
+    tooltip.style.display = 'block';
+  });
+
+  tooltip.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+
     document.getElementById('travelForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
