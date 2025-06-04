@@ -9,7 +9,7 @@ permalink: /titanic/
 
 <h2>Titanic Survival Prediction</h2>
 
-<div style="position: relative;">
+
 <form id="titanic-form">
   <div style="position: absolute; top: 0.5rem; right: 0.5rem;">
     <div style="position: relative;">
