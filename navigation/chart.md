@@ -98,6 +98,7 @@ permalink: /chart/
 </form>
 
 <script>
+  import { pythonURI, fetchOptions } from "/assets/js/api/config.js"; 
   document.getElementById('form').addEventListener('submit', async e => {
     e.preventDefault();
     const payload = {
@@ -109,7 +110,7 @@ permalink: /chart/
       chest_pain: parseInt(document.getElementById('chest_pain').value),
       comorbidities: parseInt(document.getElementById('comorbidities').value)
     };
-    const res = await fetch('http://127.0.0.1:8887/api/influenza/survive-or-thrive', {
+    const res = await fetch(pythonURI + '/api/influenza/survive-or-thrive', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)

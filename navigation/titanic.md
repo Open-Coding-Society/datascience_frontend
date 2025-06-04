@@ -209,6 +209,7 @@ permalink: /titanic/
 </style>
 
 <script>
+import { pythonURI, fetchOptions } from "/assets/js/api/config.js";  
 // Hover effect for the "?" tooltip
 const helpButton = document.querySelector('button');
 const tooltip = helpButton.nextElementSibling;
@@ -260,7 +261,7 @@ tooltip.addEventListener('mouseleave', () => {
     responseBox.innerHTML = "Predicting...";
 
     try {
-      const res = await fetch("http://127.0.0.1:8887/api/titanic/predict", {
+      const res = await fetch(pythonURI + '/api/titanic/predict', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
