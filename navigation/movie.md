@@ -113,6 +113,7 @@ permalink: /movie/
 
   <div id="result"></div>
 <script>
+import { pythonURI, fetchOptions } from "/assets/js/api/config.js"; 
   document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('movie-form');
     const resultDiv = document.getElementById('result');
@@ -124,7 +125,7 @@ permalink: /movie/
         Duration: parseInt(form.Duration.value)
       };
       try {
-        const res = await fetch('http://localhost:8887/api/movie/recommend', {
+        const res = await fetch(pythonURI + '/api/movie/recommend', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)

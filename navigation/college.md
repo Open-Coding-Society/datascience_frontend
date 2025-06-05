@@ -52,6 +52,7 @@ permalink: /college/
 <div id="results" class="max-w-lg mx-auto mt-6 text-center text-lg font-medium"></div>
 
 <script>
+  import { pythonURI, fetchOptions } from "/assets/js/api/config.js"; 
   // Hover effect for the "?" tooltip
   const helpButton = document.querySelector('button');
   const tooltip = helpButton.nextElementSibling;
@@ -76,7 +77,7 @@ permalink: /college/
       extracurriculars: parseInt(document.getElementById('extracurriculars').value),
     };
 
-    const response = await fetch('http://localhost:8887/api/college/chance', {
+    const response = await fetch(pythonURI + '/api/college/chance', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

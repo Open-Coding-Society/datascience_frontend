@@ -53,6 +53,7 @@ permalink: /score/
 <div id="percentileInfo" style="margin-top: 1.5rem; font-size: 1.5rem;"></div>
 
 <script>
+import { pythonURI, fetchOptions } from "/assets/js/api/config.js";    
 // Hover effect for the "?" tooltip
 const helpButton = document.querySelector('button');
 const tooltip = helpButton.nextElementSibling;
@@ -107,7 +108,7 @@ async function updateScores() {
 
   // Call backend for percentiles
   try {
-    const response = await fetch('http://localhost:8887/api/score/percentile', {
+    const response = await fetch(pythonURI + '/api/score/percentile', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ mcq: mcq, frq: frq })

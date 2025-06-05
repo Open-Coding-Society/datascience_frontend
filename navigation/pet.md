@@ -144,6 +144,8 @@ permalink: /train/
 
 
   <script>
+    import { pythonURI, fetchOptions } from "/assets/js/api/config.js";
+
     const form = document.getElementById('petForm');
     const petSelect = document.getElementById('petSelect');
     const resultDiv = document.getElementById('result');
@@ -172,7 +174,7 @@ form.addEventListener('submit', async (e) => {
 
 
   try {
-    const response = await fetch('http://localhost:8887/api/pet/predict', {
+    const response = await fetch(pythonURI + '/api/pet/predict', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ food, play, sleep })

@@ -143,6 +143,7 @@ permalink: /travel/
   </div>
 
   <script>
+  import { pythonURI, fetchOptions } from "/assets/js/api/config.js";  
       // Tooltip toggle
   const helpBtn = document.getElementById('helpBtn');
   const tooltip = document.getElementById('tooltip');
@@ -175,7 +176,7 @@ permalink: /travel/
       resultDiv.textContent = "Loading recommendation...";
 
       try {
-        const response = await fetch('http://localhost:8887/api/destination/recommend', {
+        const response = await fetch(pythonURI + '/api/destination/recommend', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

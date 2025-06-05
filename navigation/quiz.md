@@ -60,6 +60,7 @@ permalink: /quiz/
 </div>
 
 <script>
+import { pythonURI, fetchOptions } from "/assets/js/api/config.js";    
 const questions = {
   modeling: [
     { q: "What is a predictive model?", a: "A model that forecasts outcomes based on input data." },
