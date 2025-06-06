@@ -6,12 +6,14 @@ permalink: /facial/
 author: Tanisha Patil
 ---
 
-<div class="video-container">
-  <video id="video" width="620" height="480" autoplay muted class="video"></video>
+<div id="facial-wrapper">
+  <div class="video-container">
+    <video id="video" width="620" height="480" autoplay muted class="video"></video>
+  </div>
 </div>
 
 <style>
-  body {
+  #facial-wrapper {
     background: linear-gradient(#FFBF46, #FF99C9);
     margin: 0;
     padding: 0;
@@ -35,7 +37,6 @@ author: Tanisha Patil
   .video-container {
     display: flex;
   }
- 
 </style>
 
 <script>
