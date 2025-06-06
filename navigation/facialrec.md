@@ -6,51 +6,48 @@ permalink: /facial/
 author: Tanisha Patil
 ---
 
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
+<div class="video-container">
+    <video id="video" width="620" height="480" autoplay muted class="video"></video>
+</div>
 
-<body>
-    <div class="video-container">
-        <video id="video" width="620" height="480" autoplay muted class="video"></video>
-    </div>
-</body>
+<script>
+    const modelPath = "{{ site.baseurl }}/models";
+</script>
 
-
+<script defer src="{{ site.baseurl }}/facial/face-api.min.js"></script>
+<script defer src="{{ site.baseurl }}/facial/cscript.js"></script>
 
 <style>
     body {
-        background: linear-gradient(#FFBF46, #FF99C9);  
-        margin: 0; 
-        padding: 0; 
-        width: 100vw; 
-        height: 100vh; 
-        display: flex; 
-        justify-content: center; 
-        align-items: center; 
+        background: linear-gradient(#FFBF46, #FF99C9);
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     canvas {
-        position: absolute; 
+        position: absolute;
     }
 
     #captureEmotionButton {
-        background-color: #1eb6af; 
-        color: white; /* White text color */
-        padding: 4px 10px; /* Padding around the text */
-        font-size: 22px; /* Font size */
-        border: none; /* Remove the button border */
-        cursor: pointer; /* Change cursor to a pointer on hover */
-        border-radius: 5px; /* Rounded corners */
+        background-color: #1eb6af;
+        color: white;
+        padding: 4px 10px;
+        font-size: 22px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
         position: absolute;
         top: 1ch;
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     }
 
     #captureEmotionButton:hover {
-        background-color: #61d9d3; 
+        background-color: #61d9d3;
     }
 
     .emotionResult {
@@ -62,7 +59,7 @@ author: Tanisha Patil
     }
 
     .video {
-        border: 10px solid white; /* Add a white border */
+        border: 10px solid white;
         border-radius: 8vh;
     }
 
@@ -89,18 +86,6 @@ author: Tanisha Patil
     }
 
     .func-button:hover {
-        background: #61d9d3;  
+        background: #61d9d3;
     }
-
-
 </style>
-
-<script>
-    const modelPath = "{{ site.baseurl }}/models";
-</script>
-
-<script defer src="{{ site.baseurl }}/facial/face-api.min.js"></script>
-<script defer src="{{ site.baseurl }}/facial/cscript.js"></script>
-
-
-</html>
