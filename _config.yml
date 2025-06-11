@@ -22,6 +22,6 @@ header_pages:
   - navigation/authentication/logout.md
 
 
-Server: https://datascience.nighthawkcodingsociety.com/
-Domain: nighthawkcodingsociety.com
+Server: https://datascience.opencodingsociety.com/
+Domain: opencodingsociety.com
 Subdomain: datascience
